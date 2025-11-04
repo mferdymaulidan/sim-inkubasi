@@ -1,0 +1,1 @@
+<img src="/storage/logo.webp" {{ $attributes->merge(['class' => 'block']) }} alt="Logo Sim Inkubasi">
