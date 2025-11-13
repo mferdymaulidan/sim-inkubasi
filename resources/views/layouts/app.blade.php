@@ -18,16 +18,16 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased" x-data={sideBarOpen:false}>
-        <div class="min-h-screen bg-gray-100 grid grid-cols-1 md:grid-cols-[250px_1fr] gap-2" :class="sideBarOpen ? 'md:grid-cols-[250px_1fr]' : 'md:grid-cols-[60px_1fr]'">
+        <div class="min-h-screen bg-gray-100 grid grid-cols-1 md:grid-cols-1 gap-2">
             @include('layouts.navigation')
 
-            <aside class="mt-16 bg-blue-150 max-w-xs sm:block hidden" :class="sideBarOpen ? 'w-64' : 'w-16'">
+            <aside class="mt-16 bg-blue-150 max-w-xs sm:block fixed h-full" :class="sideBarOpen ? 'w-64' : 'w-16'">
                 @include('layouts.sidebar')
             </aside>
 
             <!-- Page Content -->
             <main>
-                <div class="p-4">
+                <div class="px-7 py-3" :class="sideBarOpen ? 'ml-64' : 'ml-16'">
                      @isset($header)
                         <header class="bg-blue-600 shadow mt-16 pl-5">
                             <div class="max-w-7xl py-6 sm:px-6">
