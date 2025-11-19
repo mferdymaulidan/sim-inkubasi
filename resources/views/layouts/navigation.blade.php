@@ -87,6 +87,9 @@
             <x-responsive-nav-link :href="route('pelanggaran.index')" :active="request()->routeIs('pelanggaran.*')">
                 {{ __('Pelanggaran') }}
             </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('galeri.index')" :active="request()->routeIs('galeri.*')">
+                {{ __('Galeri Harian') }}
+            </x-responsive-nav-link>
             @endif
             <x-responsive-nav-link :href="route('dailyr.index')" :active="request()->routeIs('dailyr.*')">
                 {{ __('Daily Report') }}

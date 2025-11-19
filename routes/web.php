@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DailyReportController;
+use App\Http\Controllers\GaleriController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
@@ -20,6 +21,7 @@ Route::resource('/user', UserController::class)->middleware(['role:admin']);
 Route::resource('/roles', RoleController::class)->middleware(['role:admin']);
 Route::resource('/pelanggaran', PelanggaranController::class)->middleware(['role:admin']);
 Route::resource('/dailyr', DailyReportController::class)->middleware('auth');
+Route::resource('/galeri', GaleriController::class)->middleware(['role:admin']);
 Route::get('/suratpelanggaran/{id_pelanggaran}', [SuratController::class, 'generatePdf'])->name('surat.pelanggaran')->middleware(['role:admin']);
 
 Route::get('/dailyreport/file/{filename}', [DailyReportController::class, 'showPdf'])

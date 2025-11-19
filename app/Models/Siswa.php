@@ -28,4 +28,8 @@ class Siswa extends Model
     {
         return $this->hasOne(User::class, 'siswa_id', 'id');
     }
+    public function galeri_harian()
+    {
+        return $this->hasMany(GaleriHarian::class, 'siswa_id', 'id')->wheredate('created_at', now()->toDateString());
+    }
 }

@@ -25,7 +25,7 @@
     <body class="wow text-[#1b1b18] w-full items-center lg:justify-center min-h-screen flex-col bg-[#48B3AF]">
         <header class="bg-[#476EAE] w-full lg:max-w-full max-w-full text-sm not-has-[nav]:hidden p-6 sticky top-0 z-50">
             <div class="container relative flex grow">
-                <div class="flex items-center justify-end gap-4 mr-4">
+                <div class="flex items-center justify-start gap-4 mr-4">
                     <x-application-logo href="/" class="w-1/5 h-auto"/>
                     <h2 class="font-semibold text-xl text-white leading-tight">
                       {{ __('SIM Inkubasi') }}
