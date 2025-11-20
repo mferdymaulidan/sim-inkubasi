@@ -37,7 +37,7 @@
                                         <form action="{{ route('dailyr.destroy', $d->id) }}" method="POST" class="inline-block">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 m-1 rounded" onclick="return confirm('Yakin ingin menghapus kelas ini?')">Hapus</button>
+                                            <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 m-1 rounded" onclick="return confirm('Yakin ingin menghapus laporan ini?')">Hapus</button>
                                         </form>
                                         @endrole
                                     </td>
@@ -54,4 +54,25 @@
             </div>
         </div>
     </div>
+    @if (session('success'))
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Sukses!',
+                text: '{{ session('success') }}',
+                timer: 3000,
+                showConfirmButton: true
+            });
+        </script>
+    @elseif (session('error'))
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal!',
+                text: '{{ session('error') }}',
+                timer: 3000,
+                showConfirmButton: true
+            });
+        </script>
+    @endif
 </x-app-layout>

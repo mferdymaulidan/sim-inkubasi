@@ -28,6 +28,7 @@ class DailyReportController extends Controller
     }
 
     public function store(Request $request) :RedirectResponse{
+        try {
          $request->validate([
             'siswa_id'     => 'required|numeric',
             'report'         => 'required|mimes:pdf,png,jpg,jpeg|max:512'
@@ -51,13 +52,20 @@ class DailyReportController extends Controller
         DailyReport::create($data);
 
         return redirect()->route('dailyr.index')->with(['success' => 'Data Berhasil Disimpan!']);
+        } catch (\Exception $e) {
+            return redirect()->route('dailyr.index')->with('error', 'Terjadi kesalahan saat menambahkan data laporan harian.'. $e->getMessage());
+        }
     }
 
     public function destroy($id) :RedirectResponse{
+        try {
         $kelas=DailyReport::findOrFail($id);
         Storage::disk('public')->delete('dailyreport/'.$kelas->dokumen);
         $kelas->delete();
-        return redirect()->route('dailyr.index')->with('success','Kelas berhasil di hapus!');
+        return redirect()->route('dailyr.index')->with('success','Laporan berhasil dihapus!');
+        } catch (\Exception $e) {
+            return redirect()->route('dailyr.index')->with('error', 'Terjadi kesalahan saat menghapus data laporan harian.'. $e->getMessage());
+        }
     }
 
     public function show($id){
@@ -87,6 +95,7 @@ class DailyReportController extends Controller
     }
 
     public function update(Request $request, $id) :RedirectResponse{
+        try {
         $dailyreport=DailyReport::findOrFail($id);
         $request->validate([
             'dokumen'         => 'mimes:pdf,png,jpg,jpeg|max:512'
@@ -109,5 +118,8 @@ class DailyReportController extends Controller
         }
         $dailyreport->update($data);
         return redirect()->route('dailyr.index')->with(['success' => 'Data Berhasil Diupdate!']);
+        } catch (\Exception $e) {
+            return redirect()->route('dailyr.index')->with('error', 'Terjadi kesalahan saat memperbarui data laporan harian.'. $e->getMessage());
+        }
     }
 }

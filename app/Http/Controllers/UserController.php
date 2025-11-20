@@ -22,6 +22,7 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
+        try {
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
@@ -41,6 +42,9 @@ class UserController extends Controller
         } else {
             return back()->withErrors(['password' => 'Password confirmation does not match.'])->withInput();
         }
+        } catch (\Exception $e) {
+            return redirect()->route('user.index')->with('error', $e->getMessage());
+        }
     }
 
     public function edit($id)
@@ -52,6 +56,7 @@ class UserController extends Controller
 
     public function update(Request $request, $id)
     {
+        try {
         $user = User::findOrFail($id);
 
         $request->validate([
@@ -75,14 +80,21 @@ class UserController extends Controller
 
         return redirect()->route('user.index')
             ->with('success', 'User updated successfully.');
+        } catch (\Exception $e) {
+            return redirect()->route('user.index')->with('error', $e->getMessage());
+        }
     }
 
     public function destroy($id)
     {
+        try {
         $user = User::findOrFail($id);
         $user->delete();
 
         return redirect()->route('user.index')
             ->with('success', 'User deleted successfully.');
+        } catch (\Exception $e) {
+            return redirect()->route('user.index')->with('error', $e->getMessage());
+        }
     }
 }

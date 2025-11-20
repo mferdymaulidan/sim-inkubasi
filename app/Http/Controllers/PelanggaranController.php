@@ -24,6 +24,7 @@ class PelanggaranController extends Controller
 
     public function store(Request $request)
     {
+        try {
         $last=Pelanggaran::orderBy('id','desc')->first();
         
         if($last){
@@ -62,10 +63,14 @@ class PelanggaranController extends Controller
 
         DB::table('pelanggaran')->insert($data);
         return redirect()->route('pelanggaran.index')->with('success', 'Data pelanggaran berhasil ditambahkan.');
+        } catch (\Exception $e) {
+            return redirect()->route('pelanggaran.index')->with('error', 'Terjadi kesalahan saat menambahkan data pelanggaran.'. $e->getMessage());
+        }
     }
 
     public function destroy($id)
     {
+        try {
         $pelanggaran = Pelanggaran::findOrFail($id);
 
         if ($pelanggaran->bukti) {
@@ -75,6 +80,9 @@ class PelanggaranController extends Controller
         $pelanggaran->delete();
 
         return redirect()->route('pelanggaran.index')->with('success', 'Data pelanggaran berhasil dihapus.');
+        } catch (\Exception $e) {
+            return redirect()->route('pelanggaran.index')->with('error', 'Terjadi kesalahan saat menghapus data pelanggaran.'. $e->getMessage());
+        }
     }
 
     public function edit($id)
@@ -86,6 +94,7 @@ class PelanggaranController extends Controller
 
     public function update(Request $request, $id)
     {
+        try {
         $pelanggaran = Pelanggaran::findOrFail($id);
 
         $request->validate([
@@ -119,5 +128,8 @@ class PelanggaranController extends Controller
         DB::table('pelanggaran')->where('id', $id)->update($data);
 
         return redirect()->route('pelanggaran.index')->with('success', 'Data pelanggaran berhasil diperbarui.');
+        } catch (\Exception $e) {
+            return redirect()->route('pelanggaran.index')->with('error', 'Terjadi kesalahan saat memperbarui data pelanggaran.'. $e->getMessage());
+        }
     }
 }

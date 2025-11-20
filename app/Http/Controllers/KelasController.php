@@ -16,6 +16,7 @@ class KelasController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
+        try {
         $request->validate([
             'kelas' => 'required|string|max:255',
         ]);
@@ -24,10 +25,14 @@ class KelasController extends Controller
             'kelas' => $request->kelas,
         ]);
         return redirect()->route('kelas.index')->with('success', 'Kelas berhasil ditambahkan.');
+        } catch (\Exception $e) {
+            return redirect()->route('kelas.index')->with('error', $e->getMessage());
+        }
     }
 
     public function update(Request $request, $id): RedirectResponse
     {
+        try {
         $request->validate([
             'kelas' => 'required|string|max:255',
         ]);
@@ -37,12 +42,19 @@ class KelasController extends Controller
             'kelas' => $request->kelas,
         ]);
         return redirect()->route('kelas.index')->with('success', 'Kelas berhasil diubah.');
+        } catch (\Exception $e) {
+            return redirect()->route('kelas.index')->with('error', $e->getMessage());
+        }
     }
 
     public function destroy($id): RedirectResponse
     {
+        try {
         $kelas = Kelas::findOrFail($id);
         $kelas->delete();
         return redirect()->route('kelas.index')->with('success', 'Kelas berhasil dihapus.');
+        } catch (\Exception $e) {
+            return redirect()->route('kelas.index')->with('error', $e->getMessage());
+        }
     }
 }

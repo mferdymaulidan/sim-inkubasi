@@ -45,6 +45,29 @@
                 </div>
             </div>
         </div>
+
+        @if (session('success'))
+            <script>
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Sukses!',
+                    text: '{{ session('success') }}',
+                    timer: 3000,
+                    showConfirmButton: true
+                });
+            </script>
+        @elseif (session('error'))
+            <script>
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Gagal!',
+                    text: '{{ session('error') }}',
+                    timer: 3000,
+                    showConfirmButton: true
+                });
+            </script>
+        @endif
+
         <div class="sm:px-6 lg:px-8 mt-8 bg-white">
             <div class="overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">

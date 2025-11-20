@@ -19,6 +19,7 @@ class RoleController extends Controller
 
     public function store(Request $request)
     {
+        try {
         $request->validate([
             'user_id' => 'required',
             'role_id' => 'required|exists:roles,id',
@@ -31,10 +32,14 @@ class RoleController extends Controller
         }
         $user->assignRole([$role->name]);
         return redirect()->route('roles.index')->with('success', 'Role berhasil dibuat.');
+        } catch (\Exception $e) {
+            return redirect()->route('roles.index')->with('error', 'Terjadi kesalahan saat membuat role.'. $e->getMessage());
+        }
     }
 
     public function update(Request $request, $id)
     {
+        try {
         $request->validate([
             'role_id' => 'required',
         ]);
@@ -44,13 +49,20 @@ class RoleController extends Controller
         $user->syncRoles([$role->name]);
 
         return redirect()->route('roles.index')->with('success', 'Role berhasil diperbarui.');
+        } catch (\Exception $e) {
+            return redirect()->route('roles.index')->with('error', 'Terjadi kesalahan saat memperbarui role.'. $e->getMessage());
+        }
     }
 
     public function destroy($id)
     {
+        try {
         $user = User::find($id);
         $user->removeRole($user->getRoleNames());
 
         return redirect()->route('roles.index')->with('success', 'Role berhasil dihapus.');
+        } catch (\Exception $e) {
+            return redirect()->route('roles.index')->with('error', 'Terjadi kesalahan saat menghapus role.'. $e->getMessage());
+        }
     }
 }

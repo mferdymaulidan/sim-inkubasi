@@ -30,6 +30,7 @@ class SiswaController extends Controller
 
     public function store(Request $request) :RedirectResponse
     {
+        try{
         $request->validate([
             'nama' => 'required',
             'nik' => 'required|unique:siswas,nik',
@@ -39,6 +40,9 @@ class SiswaController extends Controller
         ]);
         Siswa::create($request->only('nama', 'nik', 'tempat_lahir', 'tanggal_lahir', 'alamat'));
         return redirect('/siswa')->with('success', 'Data Berhasil Ditambahkan');
+        } catch (\Exception $e) {
+            return redirect('/siswa')->with('error', $e->getMessage());
+        }
     }
 
     public function show(string $id):View{
@@ -55,6 +59,7 @@ class SiswaController extends Controller
 
     public function update(Request $request, string $id):RedirectResponse
     {
+        try{
         $siswa = Siswa::findOrFail($id);
         $request->validate([
             'nama' => 'required',
@@ -71,12 +76,19 @@ class SiswaController extends Controller
             ['kelas_id' => $request->kelas_id] + ($exists ? ['updated_at' => now()] : ['created_at' => now()])
         );
         return redirect('/siswa')->with('success', 'Data Berhasil Diupdate');
+        } catch (\Exception $e) {
+            return redirect('/siswa')->with('error', $e->getMessage());
+        }
     }
 
     public function destroy(string $id):RedirectResponse
     {
+        try{
         $siswa = Siswa::findOrFail($id);
         $siswa->delete();
         return redirect('/siswa')->with('success', 'Data Berhasil Dihapus');
+        } catch (\Exception $e) {
+            return redirect('/siswa')->with('error', $e->getMessage());
+        }
     }
 }
