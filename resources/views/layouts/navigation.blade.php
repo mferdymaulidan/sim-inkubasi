@@ -90,6 +90,9 @@
             <x-responsive-nav-link :href="route('galeri.index')" :active="request()->routeIs('galeri.*')">
                 {{ __('Galeri Harian') }}
             </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('laptop.index')" :active="request()->routeIs('laptop.*')">
+                {{ __('Laptop') }}
+            </x-responsive-nav-link>
             @endif
             <x-responsive-nav-link :href="route('dailyr.index')" :active="request()->routeIs('dailyr.*')">
                 {{ __('Daily Report') }}

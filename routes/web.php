@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Storage;
 use Aws\S3\S3Client;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\KelasController;
+use App\Http\Controllers\LaptopController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PelanggaranController;
 use App\Http\Controllers\RoleController;
@@ -22,6 +23,7 @@ Route::resource('/roles', RoleController::class)->middleware(['role:admin']);
 Route::resource('/pelanggaran', PelanggaranController::class)->middleware(['role:admin']);
 Route::resource('/dailyr', DailyReportController::class)->middleware('auth');
 Route::resource('/galeri', GaleriController::class)->middleware(['role:admin']);
+Route::resource('/laptop', LaptopController::class)->middleware(['role:admin']);
 Route::get('/suratpelanggaran/{id_pelanggaran}', [SuratController::class, 'generatePdf'])->name('surat.pelanggaran')->middleware(['role:admin']);
 
 Route::get('/dailyreport/file/{filename}', [DailyReportController::class, 'showPdf'])

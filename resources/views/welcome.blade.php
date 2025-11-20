@@ -108,9 +108,7 @@
               <span class="block mb-2 text-lg font-semibold text-primary">
                 Tim Kami
               </span>
-              <h2
-                class="mb-3 text-3xl font-bold leading-[1.2] text-dark dark:text-white sm:text-4xl md:text-[40px]"
-              >
+              <h2 class="mb-3 text-3xl font-bold leading-[1.2] text-dark sm:text-4xl md:text-[40px]">
                 Tim Kreatif Kami
               </h2>
             </div>

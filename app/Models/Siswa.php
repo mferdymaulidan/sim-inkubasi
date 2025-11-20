@@ -32,4 +32,8 @@ class Siswa extends Model
     {
         return $this->hasMany(GaleriHarian::class, 'siswa_id', 'id')->wheredate('created_at', now()->toDateString());
     }
+    public function laptops()
+    {
+        return $this->belongsTo(Laptop::class);
+    }
 }
