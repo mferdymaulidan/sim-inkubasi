@@ -52,4 +52,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Siswa::class);
     }
+
+    public function mutasiLaptops()
+    {
+        return $this->hasMany(MutasiLaptop::class);
+    }
 }

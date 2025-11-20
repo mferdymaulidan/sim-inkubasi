@@ -18,4 +18,8 @@ class Laptop extends Model
     {
         return $this->belongsTo(Siswa::class);
     }
+    public function mutasiLaptops()
+    {
+        return $this->hasMany(MutasiLaptop::class);
+    }
 }

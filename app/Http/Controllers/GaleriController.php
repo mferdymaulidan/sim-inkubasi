@@ -23,6 +23,7 @@ class GaleriController extends Controller
 
     public function store(Request $request)
     {
+        try {
         $request->validate([
             'siswa_id' => 'required|exists:siswas,id',
             'galeri' => 'required|image|max:2048'
@@ -35,5 +36,20 @@ class GaleriController extends Controller
             'foto' => $report->hashName()
         ]);
         return redirect()->route('galeri.index')->with(['success' => 'Data Berhasil Disimpan!']);
+        } catch (\Exception $e) {
+            return redirect()->route('galeri.index')->with(['error' => 'Terjadi kesalahan: ' . $e->getMessage()]);
+        }
+    }
+
+    public function destroy($id)
+    {
+        try {
+            $galeri = GaleriHarian::findOrFail($id);
+            Storage::disk('public')->delete('galeri_harian/' . $galeri->foto);
+            $galeri->delete();
+            return redirect()->route('galeri.index')->with(['success' => 'Data Berhasil Dihapus!']);
+        } catch (\Exception $e) {
+            return redirect()->route('galeri.index')->with(['error' => 'Terjadi kesalahan: ' . $e->getMessage()]);
+        }
     }
 }
