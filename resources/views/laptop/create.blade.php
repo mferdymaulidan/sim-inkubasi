@@ -17,6 +17,7 @@
                                 <option value="{{$da->id}}">{{ $da->nama }}</option>
                             @endforeach
                         </select>
+                        <input type="text" name="code" onkeydown="return event.key !== 'Enter'" id="code" class="w-full p-2 m-2 border border-black rounded" placeholder="Code Siswa">
                         <input type="text" name="brand" id="brand" class="w-full p-2 m-2 border border-black rounded" placeholder="Brand Laptop">
                         <input type="text" name="model" id="model" class="w-full p-2 m-2 border border-black rounded" placeholder="Model Laptop">
                         <textarea name="aksesoris" id="aksesoris" class="w-full p-2 m-2 border border-black rounded" placeholder="Aksesoris"></textarea>

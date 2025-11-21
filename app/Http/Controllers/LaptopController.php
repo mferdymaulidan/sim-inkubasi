@@ -27,6 +27,7 @@ class LaptopController extends Controller
             $request->validate([
                 'siswa_id' => 'required|exists:siswas,id',
                 'brand' => 'required|string|max:255',
+                'code' => 'required|string|max:255',
                 'model' => 'required|string|max:255',
                 'aksesoris' => 'required|string|max:255',
                 'gambar' => 'nullable|image|max:2048',
@@ -35,6 +36,7 @@ class LaptopController extends Controller
             $laptop = new Laptop();
             $laptop->siswa_id = $request->siswa_id;
             $laptop->brand = $request->brand;
+            $laptop->code = $request->code;
             $laptop->model = $request->model;
             $laptop->aksesoris = $request->aksesoris;
 
@@ -79,6 +81,7 @@ class LaptopController extends Controller
             $request->validate([
                 'siswa_id' => 'required|exists:siswas,id',
                 'brand' => 'required|string|max:255',
+                'code' => 'required|string|max:255',
                 'model' => 'required|string|max:255',
                 'aksesoris' => 'required|string|max:255',
                 'gambar' => 'nullable|image|max:2048',
@@ -87,6 +90,7 @@ class LaptopController extends Controller
             $laptop = Laptop::findOrFail($id);
             $laptop->siswa_id = $request->siswa_id;
             $laptop->brand = $request->brand;
+            $laptop->code = $request->code;
             $laptop->model = $request->model;
             $laptop->aksesoris = $request->aksesoris;
 

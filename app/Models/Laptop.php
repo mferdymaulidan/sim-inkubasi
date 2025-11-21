@@ -10,6 +10,7 @@ class Laptop extends Model
         'siswa_id',
         'brand',
         'model',
+        'code',
         'aksesoris',
         'gambar',
     ];

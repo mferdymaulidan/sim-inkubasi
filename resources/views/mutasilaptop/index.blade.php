@@ -1,53 +1,64 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-white leading-tight">
-            {{ __('Mutasi Laptop') }}
-        </h2>
-    </x-slot>
-
-    <div class="py-4">
+<div class="py-4 mt-12">
         <div class="mx-auto">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 bg-white border-b border-gray-200">
-                    <div class="mb-4">
-                        <a href="{{ route('mutlaptop.create') }}" class="px-2 py-2 bg-blue-500 rounded text-white">Tambah Mutasi Laptop</a>
-                    </div>
-                    <div class="overflow-x-auto">
-                    <table class="w-full">
-                        <thead>
-                            <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
-                            <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">User</th>
-                            <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Laptop</th>
-                            <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                            <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tanggal Ambil</th>
-                            <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tanggal Kembali</th>
-                            <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
-                        </thead>
-                        <tbody>
-                            @foreach ($mutasi as $item)
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="p-6 bg-white border-b border-gray-200">
+                        <form action="{{ route('mutlaptop.store') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <h3 class="text-lg font-medium text-gray-900 mb-4">RFID</h3>
+                            <input type="text" id="code" name="code" class="border border-gray-300 rounded-md p-2 w-full" placeholder="Scan RFID here..." autofocus>
+                        </form>
+                        <h1 class="text xl mt-4 font-bold">5 Riwayat Mutasi</h1>
+                        <table class="w-full mt-2">
+                            <thead>
                                 <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap">{{ $item->id }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">{{ $item->user->name }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">{{ $item->laptop->brand }} {{ $item->laptop->model }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">{{ $item->status }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">{{ $item->created_at }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">{{ $item->updated_at }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <form action="{{ route('mutlaptop.update', $item->id) }}" method="POST" class="inline">
-                                            @csrf
-                                            @method('PUT')
-                                            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded">Kembali</button>
-                                        </form>
-                                        <form action="{{ route('mutlaptop.destroy', $item->id) }}" method="POST" class="inline">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded" onclick="return confirm('Are you sure?')">Delete</button>
-                                        </form>
-                                    </td>
+                                    <th class="border px-4 py-2 rounded-l bg-blue-500 text-white">Gambar</th>
+                                    <th class="border px-4 py-2 bg-blue-500 text-white">Laptop</th>
+                                    <th class="border px-4 py-2 bg-blue-500 text-white">Siswa</th>
+                                    <th class="border px-4 py-2 bg-blue-500 text-white">Status</th>
+                                    <th class="border px-4 py-2 bg-blue-500 text-white">Tanggal Ambil</th>
+                                    <th class="border px-4 py-2 rounded-r bg-blue-500 text-white">Tanggal Kembali</th>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                @foreach ($riwayat as $mut)
+                                <tr>
+                                    <td class="border px-4 py-2"><img src="{{ asset('storage/' . $mut->laptop->gambar) }}" alt="Laptop" class="max-w-24 h-auto"></td>
+                                    <td class="border px-4 py-2 text-center">{{ $mut->laptop->brand }} {{ $mut->laptop->model }}</td>
+                                    <td class="border px-4 py-2 text-center">{{ $mut->laptop->siswa->nama }}</td>
+                                    <td class="border px-4 py-2 text-center">{{ ucfirst($mut->status) }}</td>
+                                    <td class="border px-4 py-2 text-center">{{ $mut->created_at }}</td>
+                                    <td class="border px-4 py-2 text-center">{{ $mut->updated_at }}</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="p-6 bg-white border-b border-gray-200">
+                        <h1 class="text xl mt-4 font-bold">Belum Kembali</h1>
+                        <table class="w-full mt-2">
+                            <thead>
+                                <tr>
+                                    <th class="border px-4 py-2 rounded-l bg-blue-500 text-white">Gambar</th>
+                                    <th class="border px-4 py-2 bg-blue-500 text-white">Laptop</th>
+                                    <th class="border px-4 py-2 bg-blue-500 text-white">Siswa</th>
+                                    <th class="border px-4 py-2 bg-blue-500 text-white">Status</th>
+                                    <th class="border px-4 py-2 rounded-r bg-blue-500 text-white">Tanggal Ambil</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($mutasi as $mut)
+                                <tr>
+                                    <td class="border px-4 py-2"><img src="{{ asset('storage/' . $mut->laptop->gambar) }}" alt="Laptop" class="max-w-24 h-auto"></td>
+                                    <td class="border px-4 py-2 text-center">{{ $mut->laptop->brand }} {{ $mut->laptop->model }}</td>
+                                    <td class="border px-4 py-2 text-center">{{ $mut->laptop->siswa->nama }}</td>
+                                    <td class="border px-4 py-2 text-center">{{ ucfirst($mut->status) }}</td>
+                                    <td class="border px-4 py-2 text-center">{{ $mut->created_at }}</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -55,24 +66,30 @@
     </div>
     @if(session('success'))
         <script>
+            document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('code').focus();
+        });
             Swal.fire({
                 icon: 'success',
                 title: 'Success',
                 text: '{{ session('success') }}',
-                timer: 3000,
+                timer: 1000,
                 timerProgressBar: true,
-                showConfirmButton: true,
+                showConfirmButton: false,
             });
         </script>
     @elseif(session('error'))
         <script>
+            document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('code').focus();
+        });
             Swal.fire({
                 icon: 'error',
                 title: 'Error',
                 text: '{{ session('error') }}',
-                timer: 3000,
+                timer: 1000,
                 timerProgressBar: true,
-                showConfirmButton: true,
+                showConfirmButton: false,
             });
         </script>
     @endif
