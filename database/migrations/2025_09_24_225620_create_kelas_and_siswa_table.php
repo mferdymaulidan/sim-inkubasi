@@ -18,7 +18,7 @@ return new class extends Migration
             $table->softDeletes();
         });
 
-         Schema::create('siswa', function (Blueprint $table) {
+         Schema::create('siswas', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
             $table->string('tempat_lahir');
