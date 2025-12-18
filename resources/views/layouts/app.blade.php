@@ -22,13 +22,13 @@
         <div class="min-h-screen bg-gray-100 grid grid-cols-1 md:grid-cols-1 gap-2">
             @include('layouts.navigation')
 
-            <aside class="mt-16 bg-blue-150 max-w-xs sm:block hidden lg:fixed h-full" :class="sideBarOpen ? 'w-64' : 'w-16'">
+            <aside class="mt-16 bg-blue-150 max-w-xs sm:block fixed hidden h-full" :class="sideBarOpen ? 'w-64' : 'w-16'">
                 @include('layouts.sidebar')
             </aside>
 
             <!-- Page Content -->
             <main>
-                <div class="px-7 py-3" :class="sideBarOpen ? 'lg:ml-64' : 'lg:ml-16'">
+                <div class="px-7 py-3 sm:px-2" :class="sideBarOpen ? 'ml-64 max-sm:ml-2' : 'ml-16 max-sm:ml-2'">
                      @isset($header)
                         <header class="bg-blue-600 shadow mt-16 pl-5">
                             <div class="max-w-7xl py-6 sm:px-6">

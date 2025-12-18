@@ -2,15 +2,16 @@
 <div class="py-4 mt-12">
         <div class="mx-auto">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="grid grid-cols-2 gap-4">
+                <div class="lg:grid lg:grid-cols-2 gap-4">
                     <div class="p-6 bg-white border-b border-gray-200">
                         <form action="{{ route('mutlaptop.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <h3 class="text-lg font-medium text-gray-900 mb-4">RFID</h3>
-                            <input type="text" id="code" name="code" class="border border-gray-300 rounded-md p-2 w-full" placeholder="Scan RFID here..." autofocus>
+                            <input type="text" id="code" name="code" class="border border-gray-300 rounded-md p-2 w-full" oninput="document.getElementById('code').form.submit()" placeholder="Scan RFID here..." autofocus>
                         </form>
                         <h1 class="text xl mt-4 font-bold">5 Riwayat Mutasi</h1>
-                        <table class="w-full mt-2">
+                        <div class="overflow-x-auto">
+                        <table class="w-full mt-2 overflow-hidden">
                             <thead>
                                 <tr>
                                     <th class="border px-4 py-2 rounded-l bg-blue-500 text-white">Gambar</th>
@@ -34,10 +35,12 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        </div>
                     </div>
                     <div class="p-6 bg-white border-b border-gray-200">
                         <h1 class="text xl mt-4 font-bold">Belum Kembali</h1>
-                        <table class="w-full mt-2">
+                        <div class="overflow-x-auto">
+                        <table class="w-full mt-2 overflow-hidden">
                             <thead>
                                 <tr>
                                     <th class="border px-4 py-2 rounded-l bg-blue-500 text-white">Gambar</th>
@@ -59,6 +62,7 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        </div>
                     </div>
                 </div>
             </div>
